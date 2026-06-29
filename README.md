@@ -1,141 +1,70 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0f172a,50:1e3a5f,100:6366f1&height=220&section=header&text=Suraj%20Bhonkar&fontSize=56&fontColor=ffffff&fontAlignY=40&desc=AI%20Engineer%20%E2%80%A2%20Multi-Agent%20Systems%20%E2%80%A2%20LLM%20Infrastructure&descAlignY=62&descSize=15&descColor=a5b4fc&animation=fadeIn" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0f172a,50:1e3a5f,100:6366f1&height=200&section=header&text=jobtrack-agent&fontSize=52&fontColor=ffffff&fontAlignY=40&desc=AI-powered%20job%20application%20tracker%20%E2%80%94%20capture%2C%20extract%2C%20search%2C%20follow%20up&descAlignY=62&descSize=14&descColor=a5b4fc&animation=fadeIn" width="100%" />
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2800&pause=900&color=6366F1&center=true&vCenter=true&multiline=false&repeat=true&width=680&height=45&lines=Building+production+AI+systems+that+actually+ship+%F0%9F%9A%80;LangGraph+%C2%B7+RAG+%C2%B7+Multi-agent+orchestration;Finance+%E2%9C%95+LLMs+%3D+ALPHA+%E2%80%94+%3C40s+equity+analysis;From+Navi+Mumbai+%F0%9F%87%AE%F0%9F%87%B3+%E2%80%94+IIT+Hyderabad+%E2%80%94+Building+what%27s+next" alt="Typing" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2800&pause=900&color=6366F1&center=true&vCenter=true&multiline=false&repeat=true&width=680&height=45&lines=Capture+any+job+posting+in+one+click+%F0%9F%96%B1%EF%B8%8F;Groq+LLM+extracts+structured+details+in+seconds+%F0%9F%A4%96;Semantic+search+with+Qdrant+%E2%80%94+find+any+application+naturally;Never+miss+a+follow-up+again+%F0%9F%94%94" alt="Typing" />
 
 <br/><br/>
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230A66C2.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/suraj-bhonkar-8a4369188/)
-[![Gmail](https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bhonkarsuraj99@gmail.com)
-[![ALPHA Demo](https://img.shields.io/badge/ALPHA-Live%20Demo-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://alpha-gamma-umber.vercel.app)
-[![quest-evaluator](https://img.shields.io/badge/quest--evaluator-Live%20Demo-06b6d4?style=for-the-badge&logo=vercel&logoColor=white)](https://quest-evaluator.vercel.app)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=for-the-badge&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Chrome](https://img.shields.io/badge/Chrome%20Extension-MV3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 
 <br/>
 
-![Profile Views](https://komarev.com/ghpvc/?username=bsuraj-2699&color=6366f1&style=flat-square&label=Profile+Views)
+![Status](https://img.shields.io/badge/Status-Active%20Development-6366f1?style=flat-square)
+![Vectors](https://img.shields.io/badge/Vectors-384--dim-06b6d4?style=flat-square)
+![Model](https://img.shields.io/badge/Primary%20Model-llama--3.3--70b-FF6B35?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-a5b4fc?style=flat-square)
 
 </div>
 
 ---
 
-<div align="center">
+## ⚡ What it does
 
-## ⚡ By the numbers
+> Apply to 20–30 jobs/day and forget them in 48 hours. This fixes that.
 
-| Metric | Result |
-|:---|:---|
-| 🕐 Full equity analysis — ALPHA pipeline end-to-end | **< 40 seconds** |
-| 🎯 Directional accuracy on Nifty 50 top-10 signals | **~70%** |
-| 🚀 Faster than manual candidate review (quest-evaluator) | **~112×** |
-| 💬 LLM providers integrated across production projects | **5 providers** |
-| ⚙️ Candidate evaluation turnaround — quest-evaluator | **8 seconds** |
+| | Feature | Detail |
+|:---:|:---|:---|
+| 🖱️ | **One-click capture** | Chrome extension grabs URL, title & full HTML from any job board |
+| 🤖 | **LLM extraction** | Groq pulls company, role, salary, skills, summary — structured every time |
+| 🧠 | **Semantic search** | *"that fintech role in Bangalore with React"* — finds it instantly |
+| 📋 | **Status tracking** | CLI to update, list, export to CSV / Excel |
+| 🔔 | **Follow-up reminders** | APScheduler flags cold applications after N days |
 
-</div>
+**Supported boards:** `LinkedIn` `Naukri` `Wellfound` `Internshala` `Indeed` `Glassdoor`
 
 ---
 
-## 🧠 ALPHA — Multi-Agent Financial Analysis
-
-> **[IIT Hyderabad Capstone](https://github.com/bsuraj-2699/ALPHA) · [Live Demo →](https://alpha-gamma-umber.vercel.app)**
-
-A **7-node LangGraph pipeline** for Indian equity analysis. Real data. Real decisions. No hallucination tolerance.
+## 🏗️ Architecture
 
 ```
-                                 ┌──[ Fundamental Analyst ]──┐
-                                 ├──[ Technical  Analyst  ]──┤
-[ Parse ] ──► [ Context Builder ]┼──[ Sentiment  Analyst  ]──┼──► [ Bull/Bear Debate ] ──► [ Judge ] ──► [ ✅ Signal ]
-                                 ├──[ Macro      Analyst  ]──┤
-                                 └──[ Risk       Analyst  ]──┘
+┌──────────────┐   raw HTML     ┌─────────────┐   LangChain    ┌──────────────┐
+│   Browser    │ ─────────────▶ │   FastAPI   │ ─────────────▶ │  Groq LLMs   │
+│  Extension   │  POST /capture │   backend   │    extract     │ llama-3.3-70b│
+└──────────────┘                └─────────────┘                └──────────────┘
+                                      │                               │
+                                      │  embed 384-d                  ▼
+                                      │  all-MiniLM-L6-v2      ExtractionResult
+                                      ▼                         JobApplication
+                                ┌───────────┐ ◀──── store ──────────────┘
+                                │  Qdrant   │
+                                │  (Docker) │
+                                └───────────┘
+                                      ▲
+                       search / list / export / reminders
+                                      │
+                                ┌───────────┐
+                                │    CLI    │  jobtrack <command>
+                                └───────────┘  (typer + rich)
 ```
 
-**Data sources:** `Upstox` `Yahoo Finance` `Screener.in` `NSE` `GDELT`  
-**RAG:** Qdrant + BM25 hybrid retrieval — full analysis in **< 40 seconds**
-
-<div align="center">
-
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=langchain&logoColor=white)
-![LangGraph](https://img.shields.io/badge/LangGraph-FF6B35?style=flat-square&logoColor=white)
-![GPT-4o](https://img.shields.io/badge/GPT--4o-412991?style=flat-square&logo=openai&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
-![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=flat-square&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-
-</div>
-
----
-
-## 🔬 Projects
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### [`quest-evaluator`](https://github.com/bsuraj-2699/quest-evaluator)
-**Zero-intervention AI hiring pipeline**
-
-Google Forms → polled every 60s → 7-dimension AI eval → Google Sheets + live dashboard.
-
-- ⚡ **8-second** turnaround per candidate
-- 📊 **~112×** faster than manual review
-- 🔍 Auto-extracts GitHub READMEs
-- 🤖 OpenAI · Anthropic · Gemini · Mistral · Groq
-
-[![Live](https://img.shields.io/badge/Live-Demo-06b6d4?style=flat-square&logo=vercel)](https://quest-evaluator.vercel.app)
-[![Repo](https://img.shields.io/badge/GitHub-Repo-24292e?style=flat-square&logo=github)](https://github.com/bsuraj-2699/quest-evaluator)
-
-</td>
-<td width="50%" valign="top">
-
-### [`taskme / Zapp`](https://github.com/bsuraj-2699/taskme)
-**Production task management platform**
-
-Built for small teams — CEO + employee dashboards, EOD reports, full auth.
-
-- 🔐 FastAPI + JWT authentication
-- 🗄️ PostgreSQL + Alembic migrations
-- ⏰ APScheduler for EOD reports
-- 🐳 Fully Dockerized
-
-[![Repo](https://img.shields.io/badge/GitHub-Repo-24292e?style=flat-square&logo=github)](https://github.com/bsuraj-2699/taskme)
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### [`jobfit-agent`](https://github.com/bsuraj-2699/jobfit-agent)
-**Resume × JD fit scoring**
-
-Structured skill-gap analysis with actionable recommendations — not a vibe score.
-
-- ⚡ Under **10 seconds** per evaluation
-- 🎯 7-dimension scoring with gap breakdown
-- 💡 GPT-4o structured output pipeline
-
-[![Repo](https://img.shields.io/badge/GitHub-Repo-24292e?style=flat-square&logo=github)](https://github.com/bsuraj-2699/jobfit-agent)
-
-</td>
-<td width="50%" valign="top">
-
-### 🔭 Building — [`jobtrack-agent`](https://github.com/bsuraj-2699/jobtrack-agent)
-**AI agent for high-volume job applicants**
-
-Apply to 20–30 jobs/day and forget them in 48 hours. This fixes that.
-
-- 🕷️ Browser agent scrapes JD, role, skills, salary — zero manual input
-- 🧠 Semantic search in **Qdrant**: *"that fintech role in Bangalore with React"*
-- 📋 Tabular export for status tracking
-- 🔔 Follow-up reminders when a role goes cold
-
-`Browser Agent` · `Qdrant` · `FastAPI` · `LangChain` · `Chrome Extension`
-
-</td>
-</tr>
-</table>
+> ⚠️ **Vector size note:** collection uses **384 dimensions** to match `all-MiniLM-L6-v2` — *not* 1536.
+> Swapping models? Update `VECTOR_SIZE` in `backend/storage/qdrant_client.py` and drop the `qdrant_storage` volume.
 
 ---
 
@@ -143,108 +72,129 @@ Apply to 20–30 jobs/day and forget them in 48 hours. This fixes that.
 
 <div align="center">
 
-**AI / ML & LLM Providers**
-
-[![Skills](https://skillicons.dev/icons?i=python,js,ts&theme=dark)](https://skillicons.dev)
+[![Skills](https://skillicons.dev/icons?i=python,fastapi,docker&theme=dark)](https://skillicons.dev)
 
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
-![LangGraph](https://img.shields.io/badge/LangGraph-FF6B35?style=for-the-badge&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-![Anthropic](https://img.shields.io/badge/Anthropic-D4A27F?style=for-the-badge&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logoColor=white)
-![Mistral](https://img.shields.io/badge/Mistral-FF7000?style=for-the-badge&logoColor=white)
-
-<br/>
-
-**Backend & Databases**
-
-[![Skills](https://skillicons.dev/icons?i=fastapi,nodejs,postgres,redis,docker&theme=dark)](https://skillicons.dev)
-
 ![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=for-the-badge&logoColor=white)
-![Alembic](https://img.shields.io/badge/Alembic-6BA3BE?style=for-the-badge&logoColor=white)
 ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white)
 ![APScheduler](https://img.shields.io/badge/APScheduler-3776AB?style=for-the-badge&logo=python&logoColor=white)
-
-<br/>
-
-**Frontend & Infra**
-
-[![Skills](https://skillicons.dev/icons?i=nextjs,vercel,docker,git&theme=dark)](https://skillicons.dev)
-
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![Reflex](https://img.shields.io/badge/Reflex-5646ED?style=for-the-badge&logoColor=white)
-![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+![Sentence Transformers](https://img.shields.io/badge/SentenceTransformers-FF9500?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Trafilatura](https://img.shields.io/badge/trafilatura-2d6a4f?style=for-the-badge&logo=python&logoColor=white)
+![Typer](https://img.shields.io/badge/Typer%20+%20Rich-000000?style=for-the-badge&logo=python&logoColor=white)
+![Chrome MV3](https://img.shields.io/badge/Chrome%20MV3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 
 </div>
 
 ---
 
-## 📊 GitHub Stats
+## 🚀 Quick Start
+
+**Prerequisites:** Python 3.12 · Docker · Groq API key
+
+```bash
+# 1. clone & create a venv
+git clone https://github.com/bsuraj-2699/jobtrack-agent.git
+cd jobtrack-agent
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# 2. install dependencies (downloads MiniLM weights on first run — expect a large install)
+pip install -r requirements.txt
+
+# 3. configure your Groq API key
+cp .env.example .env
+# edit .env → set GROQ_API_KEY=...
+
+# 4. start Qdrant in Docker
+docker compose up -d
+
+# 5. run the backend (also starts the follow-up reminder scheduler)
+uvicorn backend.main:app --reload
+
+# 6. install the CLI globally
+pip install -e .
+jobtrack --help
+```
+
+**Load the extension:** `chrome://extensions` → Enable **Developer mode** → **Load unpacked** → select `extension/`
+
+---
+
+## 🖥️ CLI Reference
+
+| Command | Description |
+|:---|:---|
+| `jobtrack search "<query>"` | Semantic search over applications (`--limit N`) |
+| `jobtrack list` | List all applications (`--status <status>` to filter) |
+| `jobtrack update <id>` | Update `--status` and/or `--notes` on an application |
+| `jobtrack export` | Export to CSV — use `--format excel` for `.xlsx` |
+| `jobtrack stats` | Totals, status breakdown, top skills, most active platform |
+| `jobtrack reminders` | Applications overdue for a follow-up |
+
+> `search`, `update`, `export` → talk to the running API · `list`, `stats`, `reminders` → read storage directly
+
+---
+
+## 📡 API Endpoints
+
+| Method | Path | Purpose |
+|:---|:---|:---|
+| `POST` | `/capture` | Extract, embed, and store a captured page |
+| `POST` | `/search` | Semantic search — `query`, `limit`, `status_filter` |
+| `PATCH` | `/application/{id}` | Update status / notes (404 if not found) |
+| `GET` | `/export` | Download all applications as CSV |
+| `GET` | `/health` | Liveness + Qdrant connectivity + active model |
+
+---
+
+## ⚙️ Configuration
+
+All settings load from `.env` (copy from `.env.example`):
+
+| Variable | Default | Description |
+|:---|:---|:---|
+| `GROQ_API_KEY` | — | **Required.** Groq API key for extraction |
+| `QDRANT_HOST` | `localhost` | Qdrant host |
+| `QDRANT_PORT` | `6333` | Qdrant REST port |
+| `QDRANT_COLLECTION` | `job_applications` | Collection name |
+| `PRIMARY_MODEL` | `llama-3.3-70b-versatile` | Fast extraction model |
+| `FALLBACK_MODEL` | `openai/gpt-oss-120b` | Higher-quality fallback |
+| `REMINDER_CHECK_INTERVAL_HOURS` | `24` | How often the scheduler runs |
+| `FOLLOW_UP_AFTER_DAYS` | `7` | Days before an application is flagged cold |
+
+---
+
+## 📁 Project Structure
+
+```
+jobtrack-agent/
+├── backend/
+│   ├── main.py                    # FastAPI app, endpoints, scheduler lifespan
+│   ├── config.py                  # pydantic-settings configuration
+│   ├── models.py                  # Pydantic models + detect_platform()
+│   ├── extraction/
+│   │   └── extractor.py           # trafilatura + Groq extraction pipeline
+│   ├── storage/
+│   │   └── qdrant_client.py       # Qdrant persistence (384-d vectors)
+│   ├── scheduler/
+│   │   └── reminders.py           # APScheduler follow-up checks
+│   └── cli/
+│       └── commands.py            # typer + rich CLI
+├── extension/                     # Manifest V3 Chrome extension
+├── .env.example
+├── requirements.txt
+├── pyproject.toml                 # `jobtrack` console script entry point
+└── docker-compose.yml             # Qdrant service
+```
+
+---
 
 <div align="center">
 
-<img height="175em" src="https://github-readme-stats.vercel.app/api?username=bsuraj-2699&show_icons=true&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=6366f1&icon_color=06b6d4&text_color=94a3b8&ring_color=6366f1&count_private=true" />
-<img height="175em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=bsuraj-2699&layout=compact&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=6366f1&text_color=94a3b8&langs_count=6" />
+*Part of a suite of AI tools for job seekers — see also [`jobfit-agent`](https://github.com/bsuraj-2699/jobfit-agent) for resume × JD scoring.*
 
 <br/>
 
-<img src="https://github-readme-streak-stats.herokuapp.com?user=bsuraj-2699&theme=github-dark-blue&hide_border=true&background=0d1117&ring=6366f1&fire=06b6d4&currStreakLabel=6366f1&sideLabels=94a3b8&dates=64748b" />
-
-<br/>
-
-<img src="https://github-profile-trophy.vercel.app/?username=bsuraj-2699&theme=algolia&no-frame=true&no-bg=true&row=1&column=6" />
-
-</div>
-
----
-
-## 📖 Background
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-🎓 **Education**
-
-| | |
-|:---:|:---|
-| 🏛️ | **IIT Hyderabad** · AI & Emerging Technologies · PG Diploma · `2024–25` |
-| 🎓 | **Vanderbilt University** · Prompt Engineering Specialisation |
-| 📈 | **BSE Institute** · PG Diploma in Global Financial Markets |
-
-</td>
-<td width="50%" valign="top">
-
-💼 **Experience**
-
-| | |
-|:---:|:---|
-| 🤖 | **LLM Evaluator** @ Outlier.ai · Documented hallucination patterns across model iterations |
-| 🏦 | **Intern** @ Indian Clearing Corporation · Collateral optimisation · SEBI compliance |
-
-</td>
-</tr>
-</table>
-
-> 💡 **The thread:** BSE derivatives desk → SEBI compliance → LLM failure analysis → production multi-agent systems.  
-> Finance taught me that **wrong outputs have real costs**. That's why every system I build has explicit evaluation built in.
-
----
-
-## 📈 Contribution Activity
-
-<div align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=bsuraj-2699&bg_color=0d1117&color=6366f1&line=06b6d4&point=a5b4fc&area=true&hide_border=true&area_color=1e1b4b" width="100%" />
-
-</div>
-
----
-
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6366f1,100:06b6d4&height=130&section=footer&text=Let%27s%20build%20something%20intelligent&fontSize=16&fontColor=e2e8f0&fontAlignY=68" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6366f1,100:06b6d4&height=120&section=footer&text=track%20smarter%2C%20follow%20up%20faster&fontSize=15&fontColor=e2e8f0&fontAlignY=68" width="100%" />
 
 </div>
