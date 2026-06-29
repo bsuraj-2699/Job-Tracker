@@ -44,7 +44,7 @@
 
 ```
 ┌──────────────┐   raw HTML     ┌─────────────┐   LangChain    ┌──────────────┐
-│   Browser    │ ─────────────▶ │   FastAPI   │ ─────────────▶ │  Groq LLMs   │
+│   Browser    │ ─────────────▶ │   FastAPI   │ ─────────────▶│  Groq LLMs   │
 │  Extension   │  POST /capture │   backend   │    extract     │ llama-3.3-70b│
 └──────────────┘                └─────────────┘                └──────────────┘
                                       │                               │
@@ -63,10 +63,6 @@
                                 └───────────┘  (typer + rich)
 ```
 
-> ⚠️ **Vector size note:** collection uses **384 dimensions** to match `all-MiniLM-L6-v2` — *not* 1536.
-> Swapping models? Update `VECTOR_SIZE` in `backend/storage/qdrant_client.py` and drop the `qdrant_storage` volume.
-
----
 
 ## 🛠️ Tech Stack
 
