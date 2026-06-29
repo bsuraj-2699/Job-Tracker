@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jobtrack-agent"
+version = "0.1.0"
+description = "Track, search, and follow up on job applications with an AI extraction agent."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+
+[project.scripts]
+jobtrack = "backend.cli.commands:main"
+
+[tool.setuptools]
+packages = ["backend", "backend.cli", "backend.extraction", "backend.storage", "backend.scheduler"]

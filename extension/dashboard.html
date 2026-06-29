@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobTrack Dashboard</title>
+    <style>
+      :root {
+        --bg: #080b10;
+        --panel: #111820;
+        --fg: #e2e8f0;
+        --muted: #94a3b8;
+        --muted2: #64748b;
+        --accent: #63b3ed;
+        --border: #1e293b;
+        --border2: #334155;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      /* 1. Header */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .brand .brand-logo {
+        height: 30px;
+        width: auto;
+        display: block;
+      }
+      .brand .jt {
+        color: var(--accent);
+      }
+      .brand .dash {
+        color: var(--muted);
+        margin-left: 6px;
+      }
+      .stats {
+        display: flex;
+        gap: 8px;
+      }
+      .stat-pill {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 5px 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .stat-pill b {
+        color: var(--fg);
+      }
+
+      /* 2. Filter bar */
+      .filters {
+        position: sticky;
+        top: 57px;
+        z-index: 9;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 12px 24px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+      .filters input[type="text"],
+      .filters select {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        color: var(--fg);
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 13px;
+        outline: none;
+      }
+      .filters input[type="text"] {
+        flex: 1;
+        min-width: 220px;
+      }
+      .filters input[type="text"]::placeholder {
+        color: var(--muted2);
+      }
+      .filters select:focus,
+      .filters input[type="text"]:focus {
+        border-color: var(--accent);
+      }
+      #export-btn {
+        background: var(--accent);
+        color: #0d1117;
+        font-weight: 700;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 14px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      #export-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* 3. Table */
+      .table-wrap {
+        padding: 16px 24px 40px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead th {
+        text-align: left;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted2);
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 110px;
+        background: var(--bg);
+      }
+      tbody td {
+        padding: 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      tbody tr {
+        transition: opacity 0.3s ease;
+      }
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .col-num {
+        width: 40px;
+        color: var(--muted2);
+      }
+      .col-company {
+        width: 140px;
+        font-weight: 700;
+        color: var(--fg);
+      }
+      .col-position {
+        width: 160px;
+        color: var(--muted);
+      }
+      .col-jd {
+        width: 200px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .jd-toggle {
+        color: var(--accent);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .skill-pill {
+        display: inline-block;
+        background: #0d1117;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        border-radius: 10px;
+        padding: 2px 8px;
+        font-size: 11px;
+        margin: 0 4px 4px 0;
+      }
+      .skill-more {
+        color: var(--muted2);
+        font-size: 11px;
+      }
+
+      .badge {
+        padding: 3px 9px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #0d1117;
+        text-transform: capitalize;
+      }
+      .status-select {
+        margin-top: 6px;
+        display: block;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        color: var(--fg);
+        border-radius: 6px;
+        padding: 3px 6px;
+        font-size: 11px;
+        cursor: pointer;
+      }
+
+      .platform {
+        white-space: nowrap;
+      }
+
+      .action-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      .action-btn:hover {
+        background: var(--panel);
+      }
+
+      /* 4. Empty state */
+      .empty {
+        text-align: center;
+        color: var(--muted2);
+        padding: 80px 20px;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Header -->
+    <div class="header">
+      <div class="brand">
+        <img class="brand-logo" src="icons/mark.png" alt="JobTrack Agent logo" />
+        <span class="jt">JobTrack</span><span class="dash">Dashboard</span>
+      </div>
+      <div class="stats">
+        <span class="stat-pill">Total: <b id="stat-total">0</b></span>
+        <span class="stat-pill">Applied: <b id="stat-applied">0</b></span>
+        <span class="stat-pill">Saved: <b id="stat-saved">0</b></span>
+      </div>
+    </div>
+
+    <!-- 2. Filter bar -->
+    <div class="filters">
+      <input id="search" type="text" placeholder="Search company, role, skills..." autocomplete="off" />
+      <select id="status-filter">
+        <option value="All">All statuses</option>
+        <option value="saved">Saved</option>
+        <option value="applied">Applied</option>
+        <option value="screening">Screening</option>
+        <option value="interview">Interview</option>
+        <option value="offer">Offer</option>
+        <option value="rejected">Rejected</option>
+        <option value="ghosted">Ghosted</option>
+      </select>
+      <select id="platform-filter">
+        <option value="All">All platforms</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="Naukri">Naukri</option>
+        <option value="Indeed">Indeed</option>
+        <option value="Wellfound">Wellfound</option>
+        <option value="Internshala">Internshala</option>
+        <option value="Other">Other</option>
+      </select>
+      <button id="export-btn">Export CSV</button>
+    </div>
+
+    <!-- 3. Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-company">Company</th>
+            <th class="col-position">Position</th>
+            <th class="col-jd">JD</th>
+            <th>Skills</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Platform</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div id="empty" class="empty" style="display: none">
+        No applications yet.<br />
+        Start capturing jobs with the JobTrack extension.
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+# Virtual environments
+.venv/
+.venv312/
+.venv*/
+venv/
+env/
+
+# Python cache
+__pycache__/
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Env files
+.env
+.env.*
+
+# Generated output
+graphify-out/
+
+# Local settings
+.claude/settings.local.json

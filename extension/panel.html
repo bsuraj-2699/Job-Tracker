@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobTrack Agent</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --panel: #111820;
+        --fg: #e2e8f0;
+        --muted: #64748b;
+        --muted2: #94a3b8;
+        --accent: #63b3ed;
+        --accent-hover: #4299e1;
+        --border: #1e293b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      /* 1. Header (sticky) */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .brand .brand-logo {
+        height: 22px;
+        width: auto;
+        display: block;
+      }
+      .brand .agent {
+        color: var(--muted2);
+        font-weight: 600;
+        margin-left: 4px;
+      }
+      .brand .jt {
+        color: var(--accent);
+      }
+
+      .status-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted2);
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--muted);
+      }
+      .dot.online {
+        background: #68d391;
+      }
+      .dot.offline {
+        background: #fc8181;
+      }
+
+      /* scrollable body between sticky header/footer */
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* 2. Capture */
+      #capture-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #0d1117;
+        background: var(--accent);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+      #capture-btn:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
+      #capture-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      #status {
+        min-height: 14px;
+        font-size: 13px;
+        line-height: 1.4;
+        word-break: break-word;
+      }
+      .status-success {
+        color: #68d391;
+      }
+      .status-error {
+        color: #fc8181;
+      }
+      .status-loading {
+        color: var(--accent);
+      }
+
+      /* 3. Divider + label */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-top: 1px solid var(--border);
+      }
+
+      /* 4. Search */
+      #search {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 13px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        color: var(--fg);
+        border-radius: 6px;
+        outline: none;
+      }
+      #search::placeholder {
+        color: var(--muted);
+      }
+      #search:focus {
+        border-color: var(--accent);
+      }
+
+      /* 5. Job list */
+      #job-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .job-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--muted);
+        border-radius: 8px;
+        padding: 12px;
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+      }
+      .job-card:hover {
+        border-color: var(--muted2);
+      }
+
+      .job-row1 {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+      .job-company {
+        font-weight: 700;
+        color: var(--fg);
+      }
+      .job-role {
+        color: var(--muted2);
+      }
+
+      .job-row2 {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .job-row3 {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+      .badge {
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #0d1117;
+        text-transform: capitalize;
+      }
+      .pill {
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        color: var(--muted2);
+        background: #0d1117;
+        border: 1px solid var(--border);
+      }
+
+      .empty {
+        color: var(--muted);
+        font-size: 13px;
+        padding: 8px 2px;
+      }
+
+      /* Status toggle (Saved <-> Applied) on each card */
+      .status-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .toggle-label {
+        font-size: 11px;
+        color: #64748b;
+      }
+      .toggle-switch {
+        position: relative;
+        width: 36px;
+        height: 20px;
+      }
+      .toggle-input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: #1e293b;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid #334155;
+      }
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        left: 2px;
+        top: 2px;
+        background: #64748b;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+      .toggle-input:checked + .toggle-slider {
+        background: rgba(99, 179, 237, 0.15);
+        border-color: #63b3ed;
+      }
+      .toggle-input:checked + .toggle-slider::before {
+        transform: translateX(16px);
+        background: #63b3ed;
+      }
+
+      /* 6. Footer (sticky) */
+      .footer {
+        position: sticky;
+        bottom: 0;
+        padding: 12px 16px;
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        text-align: right;
+      }
+      #export-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: color 0.15s ease, border-color 0.15s ease;
+      }
+      #export-btn:hover {
+        color: var(--fg);
+        border-color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Header -->
+    <div class="header">
+      <div class="brand">
+        <img class="brand-logo" src="icons/mark.png" alt="JobTrack Agent logo" />
+        <span class="jt">JobTrack</span><span class="agent">Agent</span>
+      </div>
+      <div class="status-pill">
+        <span id="health-dot" class="dot"></span>
+        <span id="health-text">…</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- 2. Capture -->
+      <button id="capture-btn">Capture This Job</button>
+      <div id="status"></div>
+
+      <!-- 3. Divider -->
+      <div class="divider">Recent Captures</div>
+
+      <!-- 4. Search -->
+      <input
+        id="search"
+        type="text"
+        placeholder="Search your applications..."
+        autocomplete="off"
+      />
+
+      <!-- 5. Job list -->
+      <div id="job-list"></div>
+    </div>
+
+    <!-- 6. Footer -->
+    <div class="footer">
+      <button id="dashboard-btn">Open Dashboard</button>
+      <button id="export-btn">Export CSV</button>
+    </div>
+
+    <script src="panel.js"></script>
+  </body>
+</html>
