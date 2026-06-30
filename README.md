@@ -187,8 +187,6 @@ jobtrack-agent/
 
 <div align="center">
 
-*Part of a suite of AI tools for job seekers — see also [`jobfit-agent`](https://github.com/bsuraj-2699/jobfit-agent) for resume × JD scoring.*
-
 <br/>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6366f1,100:06b6d4&height=120&section=footer&text=track%20smarter%2C%20follow%20up%20faster&fontSize=15&fontColor=e2e8f0&fontAlignY=68" width="100%" />
