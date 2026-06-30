@@ -31,15 +31,19 @@ DEFAULT_MAX_TOKENS = 2048
 class JobExtractor:
     """Turn a captured job page into a structured :class:`ExtractionResult`.
 
-    Uses a fast primary model (Llama 3.3 70B) first and escalates to a stronger
-    fallback model (GPT-OSS 120B) when the primary result looks low quality.
+    Uses a fast primary model (OpenAI GPT-OSS-120B) first and escalates to a stronger
+    fallback model (Qwen3.6-27B) when the primary result looks low quality.
     """
 
     def __init__(self) -> None:
-        primary_model = os.getenv("PRIMARY_MODEL", "llama-3.3-70b-versatile")
-        fallback_model = os.getenv("FALLBACK_MODEL", "openai/gpt-oss-120b")
+        primary_model = os.getenv("PRIMARY_MODEL", "openai/gpt-oss-120b")
+        fallback_model = os.getenv("FALLBACK_MODEL", "qwen/qwen3.6-27b")
         max_tokens = int(os.getenv("MAX_TOKENS", DEFAULT_MAX_TOKENS))
 
+        # Models configurable via .env — last changed 2026-06-29
+        # OpenAI GPT-OSS-120B (primary): faster inference, similar JSON quality
+        # Qwen3.6-27B (fallback): stronger structured-output schema adherence,
+        # specifically chosen to reduce missing-field validation errors
         self.primary = ChatGroq(
             model=primary_model,
             temperature=0,
@@ -119,6 +123,8 @@ Same rule applies to role/position — check the page <title> tag as a last reso
         Pull it out and build an ExtractionResult rather than losing everything.
         """
         try:
+            import re
+
             error_str = str(error)
             marker = "'failed_generation': '"
             start = error_str.find(marker)
@@ -133,11 +139,50 @@ Same rule applies to role/position — check the page <title> tag as a last reso
             json_end = raw.rfind("}") + 1
             if json_start < 0 or json_end <= json_start:
                 return None
-            partial_data = json.loads(raw[json_start:json_end])
-            # A salvaged generation is low-trust by definition; every other field
-            # falls back to its ExtractionResult default.
+
+            partial_json = raw[json_start:json_end]
+
+            # Job description text often contains raw backslashes (file paths,
+            # currency like "$1,000\month", escaped quotes from copy-paste).
+            # Python's strict JSON parser rejects any backslash that isn't part
+            # of a valid escape sequence (\" \\ \/ \b \f \n \r \t \uXXXX), so
+            # double up any lone backslash before parsing.
+            def fix_backslashes(text: str) -> str:
+                return re.sub(r'\\(?!["\\/bfnrtu])', r"\\\\", text)
+
+            partial_json = fix_backslashes(partial_json)
+
+            try:
+                partial_data = json.loads(partial_json)
+            except json.JSONDecodeError as je:
+                print(f"Still failed after backslash fix: {je}")
+                # Last resort: strip all backslashes entirely.
+                partial_json_stripped = partial_json.replace("\\", "")
+                try:
+                    partial_data = json.loads(partial_json_stripped)
+                except json.JSONDecodeError:
+                    print(
+                        "Could not salvage partial JSON even after stripping "
+                        "backslashes"
+                    )
+                    return None
+
+            # Fill missing required fields with safe defaults. A salvaged
+            # generation is low-trust by definition.
+            partial_data.setdefault("company", "")
+            partial_data.setdefault("role", "")
+            partial_data.setdefault("location", "")
+            partial_data.setdefault("salary_raw", "")
+            partial_data.setdefault("salary_min", None)
+            partial_data.setdefault("salary_max", None)
+            partial_data.setdefault("skills", [])
+            partial_data.setdefault("jd_full", "")
+            partial_data.setdefault("jd_summary", "")
+            partial_data.setdefault("source_platform", "")
             partial_data.setdefault("extraction_confidence", 0.3)
+            partial_data.setdefault("missing_fields", [])
             partial_data.setdefault("used_fallback", False)
+
             return ExtractionResult(**partial_data)
         except Exception as parse_err:  # noqa: BLE001 - best-effort salvage
             print(f"Could not parse failed_generation: {parse_err}")

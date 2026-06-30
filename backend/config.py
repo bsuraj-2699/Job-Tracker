@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     qdrant_host: str = "localhost"
     qdrant_port: int = 6333
     qdrant_collection: str = "job_applications"
-    primary_model: str = "llama-3.3-70b-versatile"
-    fallback_model: str = "openai/gpt-oss-120b"
+    primary_model: str = "openai/gpt-oss-120b"
+    fallback_model: str = "qwen/qwen3.6-27b"
     reminder_check_interval_hours: int = 24
     follow_up_after_days: int = 7
 
