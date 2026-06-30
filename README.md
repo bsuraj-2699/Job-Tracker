@@ -35,6 +35,7 @@
 | 🧠 | **Semantic search** | *"that fintech role in Bangalore with React"* — finds it instantly |
 | 📋 | **Status tracking** | CLI to update, list, export to CSV / Excel |
 | 🔔 | **Follow-up reminders** | APScheduler flags cold applications after N days |
+| ⚡ | Job capture: scrape → extract → embed → store | **~2-3 seconds** |
 
 **Supported boards:** `LinkedIn` `Naukri` `Wellfound` `Internshala` `Indeed` `Glassdoor`
 
