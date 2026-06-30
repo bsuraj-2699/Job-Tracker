@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import time
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -13,6 +14,11 @@ from qdrant_client import models as qmodels
 from backend.models import JobApplication
 
 load_dotenv()
+
+# Short-lived in-memory dedup cache: maps a captured URL to the timestamp it was
+# last saved. Catches rapid double-fires (within 60s) before they hit Qdrant.
+# Populated from backend.main after a successful save.
+_recent_urls: dict[str, float] = {}
 
 # Dimensionality of the embedding vectors stored alongside each application.
 # Matches the BAAI/bge-small-en-v1.5 model used by the backend (384-dim).
@@ -85,6 +91,14 @@ class QdrantStorage:
 
     def url_exists(self, url: str) -> bool:
         """Check if a job with this URL has already been captured."""
+        # In-memory short-circuit for the last 60s, to catch rapid double-fires
+        # before they reach Qdrant. Stale entries are evicted on access.
+        now = time.time()
+        if url in _recent_urls:
+            if now - _recent_urls[url] < 60:
+                return True
+            del _recent_urls[url]
+
         results = self.client.scroll(
             collection_name=self.collection,
             scroll_filter=qmodels.Filter(

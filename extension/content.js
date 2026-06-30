@@ -9,6 +9,24 @@
 
 const BACKEND_URL = "http://localhost:8000";
 
+// Page-level lock: guards against a second capture firing while one is still in
+// flight (e.g. a double-click or duplicate message from the panel).
+let _captureInFlight = false;
+
+// Build a stable dedup key for the current page. window.location.href can carry
+// per-session tracking params (and changes on SPA navigations), so we strip the
+// noisy query params and key off the normalized URL instead.
+function getNormalizedUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("utm_source");
+  url.searchParams.delete("utm_medium");
+  url.searchParams.delete("utm_campaign");
+  url.searchParams.delete("trk"); // LinkedIn tracking
+  url.searchParams.delete("refId"); // LinkedIn refId
+  url.searchParams.delete("trackingId"); // LinkedIn trackingId
+  return url.toString();
+}
+
 // ---------------------------------------------------------------------------
 // A) Manual capture message from the panel
 // ---------------------------------------------------------------------------
@@ -84,63 +102,74 @@ async function expandCollapsedContent() {
 }
 
 async function captureAndSend(status = "applied") {
-  // Expand collapsed descriptions before waiting on / snapshotting the DOM.
-  await expandCollapsedContent();
-
-  // Wait for known job detail containers per portal so outerHTML is complete.
-  const portal = window.location.hostname;
-  if (portal.includes("indeed.com")) {
-    await waitForContent(
-      ".jobsearch-JobComponent, [data-testid='jobsearch-JobInfoHeader-title']"
-    );
-  } else if (portal.includes("linkedin.com")) {
-    await waitForContent(
-      ".job-details-jobs-unified-top-card__job-title, .jobs-description"
-    );
-  } else if (portal.includes("naukri.com")) {
-    await waitForContent(".jd-header-title, .job-tittle");
-  } else if (portal.includes("wellfound.com")) {
-    await waitForContent(".job-show, [data-test='job-title']");
-  } else if (portal.includes("internshala.com")) {
-    await waitForContent(".profile-header, .job_detail");
+  // Bail if a capture is already running — prevents duplicate double-fires.
+  if (_captureInFlight) {
+    console.log("[JobTrack] Capture already in flight, skipping");
+    return { success: false, error: "capture_in_flight" };
   }
-
-  // Additional 600ms buffer for any remaining async rendering
-  await new Promise((r) => setTimeout(r, 600));
-
-  // NOW grab the HTML — page is fully loaded
-  const raw_html = document.documentElement.outerHTML;
-
-  const payload = {
-    url: window.location.href,
-    raw_html,
-    page_title: document.title,
-  };
+  _captureInFlight = true;
 
   try {
-    const res = await fetch(
-      `${BACKEND_URL}/capture?status=${encodeURIComponent(status)}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
-    // 409 = backend already has this URL; not an error, just inform the user.
-    if (res.status === 409) {
-      sessionStorage.setItem(`jt_captured_${window.location.href}`, "true");
-      showToast("Already saved!", "info");
-      return { success: true, duplicate: true };
-    }
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    // Expand collapsed descriptions before waiting on / snapshotting the DOM.
+    await expandCollapsedContent();
 
-    const data = await res.json();
-    sessionStorage.setItem(`jt_captured_${window.location.href}`, "true");
-    showToast(`✅ Captured: ${data.role} at ${data.company}`, "success");
-    return { success: true, data };
-  } catch (err) {
-    showToast("❌ Capture failed — is backend running?", "error");
-    return { success: false, error: err.message };
+    // Wait for known job detail containers per portal so outerHTML is complete.
+    const portal = window.location.hostname;
+    if (portal.includes("indeed.com")) {
+      await waitForContent(
+        ".jobsearch-JobComponent, [data-testid='jobsearch-JobInfoHeader-title']"
+      );
+    } else if (portal.includes("linkedin.com")) {
+      await waitForContent(
+        ".job-details-jobs-unified-top-card__job-title, .jobs-description"
+      );
+    } else if (portal.includes("naukri.com")) {
+      await waitForContent(".jd-header-title, .job-tittle");
+    } else if (portal.includes("wellfound.com")) {
+      await waitForContent(".job-show, [data-test='job-title']");
+    } else if (portal.includes("internshala.com")) {
+      await waitForContent(".profile-header, .job_detail");
+    }
+
+    // Additional 600ms buffer for any remaining async rendering
+    await new Promise((r) => setTimeout(r, 600));
+
+    // NOW grab the HTML — page is fully loaded
+    const raw_html = document.documentElement.outerHTML;
+
+    const payload = {
+      url: window.location.href,
+      raw_html,
+      page_title: document.title,
+    };
+
+    try {
+      const res = await fetch(
+        `${BACKEND_URL}/capture?status=${encodeURIComponent(status)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+      // 409 = backend already has this URL; not an error, just inform the user.
+      if (res.status === 409) {
+        sessionStorage.setItem(`jt_captured_${getNormalizedUrl()}`, "true");
+        showToast("Already saved!", "info");
+        return { success: true, duplicate: true };
+      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      sessionStorage.setItem(`jt_captured_${getNormalizedUrl()}`, "true");
+      showToast(`✅ Captured: ${data.role} at ${data.company}`, "success");
+      return { success: true, data };
+    } catch (err) {
+      showToast("❌ Capture failed — is backend running?", "error");
+      return { success: false, error: err.message };
+    }
+  } finally {
+    _captureInFlight = false;
   }
 }
 

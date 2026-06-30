@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 import json
+import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
@@ -23,7 +24,7 @@ from backend.models import (
     detect_platform,
 )
 from backend.scheduler.reminders import start_scheduler, stop_scheduler
-from backend.storage.qdrant_client import get_storage
+from backend.storage.qdrant_client import _recent_urls, get_storage
 
 
 @asynccontextmanager
@@ -119,6 +120,9 @@ def capture(
     embed_input = f"{job.role} {job.company} {' '.join(job.skills)} {job.jd_summary}"
     embedding = get_embedding(embed_input)
     get_storage().save(job, embedding)
+
+    # Record the save so rapid double-fires are deduped in-memory for ~60s.
+    _recent_urls[request.url] = time.time()
 
     return job
 
