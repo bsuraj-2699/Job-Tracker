@@ -17,7 +17,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Active%20Development-6366f1?style=flat-square)
 ![Vectors](https://img.shields.io/badge/Vectors-384--dim-06b6d4?style=flat-square)
-![Model](https://img.shields.io/badge/Primary%20Model-llama--3.3--70b-FF6B35?style=flat-square)
+![Model](https://img.shields.io/badge/Primary%20Model-gpt-oss-120b-FF6B35?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-a5b4fc?style=flat-square)
 
 </div>
@@ -44,8 +44,8 @@
 
 ```
 ┌──────────────┐   raw HTML     ┌─────────────┐   LangChain    ┌──────────────┐
-│   Browser    │ ─────────────▶ │   FastAPI   │ ─────────────▶│  Groq LLMs   │
-│  Extension   │  POST /capture │   backend   │    extract     │ llama-3.3-70b│
+│   Browser    │ ─────────────▶ │   FastAPI   │ ─────────────▶│  Groq LLMs   │  
+│  Extension   │  POST /capture │   backend   │    extract     │ gpt-oss-120b │
 └──────────────┘                └─────────────┘                └──────────────┘
                                       │                               │
                                       │  embed 384-d                  ▼
@@ -153,8 +153,8 @@ All settings load from `.env` (copy from `.env.example`):
 | `QDRANT_HOST` | `localhost` | Qdrant host |
 | `QDRANT_PORT` | `6333` | Qdrant REST port |
 | `QDRANT_COLLECTION` | `job_applications` | Collection name |
-| `PRIMARY_MODEL` | `llama-3.3-70b-versatile` | Fast extraction model |
-| `FALLBACK_MODEL` | `openai/gpt-oss-120b` | Higher-quality fallback |
+| `PRIMARY_MODEL` | `openai/gpt-oss-120b` | Fast extraction model |
+| `FALLBACK_MODEL` | `qwen/qwen3.6-27b` | Higher-quality fallback |
 | `REMINDER_CHECK_INTERVAL_HOURS` | `24` | How often the scheduler runs |
 | `FOLLOW_UP_AFTER_DAYS` | `7` | Days before an application is flagged cold |
 
