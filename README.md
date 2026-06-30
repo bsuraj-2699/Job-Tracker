@@ -17,7 +17,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Active%20Development-6366f1?style=flat-square)
 ![Vectors](https://img.shields.io/badge/Vectors-384--dim-06b6d4?style=flat-square)
-![Model](https://img.shields.io/badge/Primary%20Model-gpt-oss-120b-FF6B35?style=flat-square)
+![Model](https://img.shields.io/badge/Primary%20Model-gpt_oss_120b-FF6B35?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-a5b4fc?style=flat-square)
 
 </div>
